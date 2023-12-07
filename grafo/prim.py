@@ -1,15 +1,12 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-# Crie um grafo
 grafo = nx.Graph()
 
-# Adicione pelo menos 20 nós representando prédios
 num_nos = 20
 predios = [f"Prédio {i + 1}" for i in range(num_nos)]
 grafo.add_nodes_from(predios)
 
-# Adicione arestas com pesos (distâncias e custos de instalação)
 arestas = [
     ("Prédio 1", "Prédio 2", {'weight_dist': 50, 'weight_custo': 2000}),
     ("Prédio 1", "Prédio 3", {'weight_dist': 75, 'weight_custo': 2400}),
@@ -47,21 +44,21 @@ arestas = [
 
 grafo.add_edges_from(arestas)
 
-# Aplicar o algoritmo de Prim para obter a Árvore Geradora Mínima (AGM)
 AGM = nx.minimum_spanning_tree(grafo, weight='weight_dist')
 
-# Desenhe o grafo original
 posicao = nx.spring_layout(grafo)
 rotulos_dist = nx.get_edge_attributes(grafo, 'weight_dist')
 rotulos_custo = nx.get_edge_attributes(grafo, 'weight_custo')
 
-nx.draw_networkx_edge_labels(grafo, posicao, edge_labels=rotulos_dist, label_pos=0.3)
-nx.draw_networkx_edge_labels(grafo, posicao, edge_labels=rotulos_custo, label_pos=0.7)
+nx.draw_networkx_edge_labels(
+    grafo, posicao, edge_labels=rotulos_dist, label_pos=0.3)
+nx.draw_networkx_edge_labels(
+    grafo, posicao, edge_labels=rotulos_custo, label_pos=0.7)
 
-nx.draw(grafo, posicao, with_labels=True, font_weight='bold', node_size=700, node_color='skyblue', font_size=8, font_color='black', font_family='arial')
+nx.draw(grafo, posicao, with_labels=True, font_weight='bold', node_size=700,
+        node_color='skyblue', font_size=8, font_color='black', font_family='arial')
 
-# Desenhe a Árvore Geradora Mínima
-nx.draw(AGM, posicao, edge_color='red', with_labels=True, font_weight='bold', node_size=700, node_color='skyblue', font_size=8, font_color='black', font_family='arial')
+nx.draw(AGM, posicao, edge_color='red', with_labels=True, font_weight='bold', node_size=700,
+        node_color='skyblue', font_size=8, font_color='black', font_family='arial')
 
-# Exiba o gráfico
 plt.show()
